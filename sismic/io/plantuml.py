@@ -170,7 +170,7 @@ class PlantUMLExporter:
         # Nested states
         for i, child in enumerate(self.statechart.children_for(name)):
             if i != 0 and isinstance(state, OrthogonalState):
-                self.output('--')
+                self.output('||')
             self.export_state(child)
 
         self.deindent()
@@ -198,9 +198,9 @@ class PlantUMLExporter:
         if transition.priority != Transition.DEFAULT_PRIORITY:
             text.append('{}:'.format(transition.priority))
         if transition.event:
-            text.append(transition.event + ' ')
+            text.append(transition.event + '\\n')
         if transition.guard:
-            text.append('[{}] '.format(transition.guard))
+            text.append('[{}]\\n'.format(transition.guard))
         if transition.action and self.transition_action:
             text.append('/ {}'.format(transition.action.replace('\n', '; ')))
 
