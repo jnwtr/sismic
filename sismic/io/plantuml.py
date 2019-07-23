@@ -202,7 +202,7 @@ class PlantUMLExporter:
         if transition.guard:
             text.append('[{}]\\n'.format(transition.guard))
         if transition.action and self.transition_action:
-            text.append('/ {}'.format(transition.action.replace('\n', '; ')))
+            text.append('/ {}'.format(transition.action.replace('\n', ';\\n')))
 
         if self.transition_contracts and (
                 transition.preconditions or transition.invariants or transition.postconditions):
