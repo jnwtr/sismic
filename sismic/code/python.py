@@ -134,7 +134,7 @@ class PythonEvaluator(Evaluator):
         exposed_context = {
             'active': lambda s: s in self._interpreter.configuration,
             'time': self._interpreter.time,
-            'self': id(self)
+            'self': self._interpreter.statechart.name
         }
         exposed_context.update(additional_context if additional_context is not None else {})
 
@@ -164,8 +164,8 @@ class PythonEvaluator(Evaluator):
         exposed_context = {
             'active': lambda name: name in self._interpreter.configuration,
             'time': self._interpreter.time,
-            'send': lambda name, **kwargs: sent_events.append(InternalEvent(name=name, source=id(self), origin=id(self), **kwargs)),
-            'forward': lambda event: sent_events.append(InternalEvent(name=event.name, source=id(self), origin=event.origin, **event.data)) if event.source and event.origin and event.source != id(self) else None,
+            'send': lambda name, **kwargs: sent_events.append(InternalEvent(name=name, source=self._interpreter.statechart.name, origin=self._interpreter.statechart.name, **kwargs)),
+            'forward': lambda event: sent_events.append(InternalEvent(name=event.name, source=self._interpreter.statechart.name, origin=event.origin, **event.data)) if event.source and event.origin and event.source != self._interpreter.statechart.name else None,
             'notify': lambda name, **kwargs: sent_events.append(MetaEvent(name, **kwargs)),
             'setdefault': self._setdefault,
         }

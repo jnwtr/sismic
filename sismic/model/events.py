@@ -52,12 +52,13 @@ class Event:
         return ['name'] + list(self.data.keys())
 
     def __repr__(self):
+        text = '{}({!r}, source={!r}, origin={!r}'.format(self.__class__.__name__,
+                                                          self.name,
+                                                          self.source,
+                                                          self.origin)
         if self.data:
-            return '{}({!r}, {})'.format(self.__class__.__name__,
-                                         self.name,
-                                         ', '.join('{}={!r}'.format(k, v) for k, v in self.data.items()))
-        else:
-            return '{}({!r})'.format(self.__class__.__name__, self.name)
+            text += ', ' + ', '.join('{}={!r}'.format(k, v) for k, v in self.data.items())
+        return text
 
 
 class InternalEvent(Event):
