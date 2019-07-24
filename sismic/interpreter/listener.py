@@ -17,7 +17,7 @@ class InternalEventListener:
 
     def __call__(self, event: MetaEvent) -> None:
         if event.name == 'event sent':
-            self._callable(Event(event.event.name, **event.event.data))
+            self._callable(Event(event.event.name, event.event.source, event.event.origin, **event.event.data))
 
 
 class PropertyStatechartListener:
