@@ -20,10 +20,12 @@ class Event:
     :param data: additional data passed as named parameters.
     """
 
-    __slots__ = ['name', 'data']
+    __slots__ = ['name', 'source', 'origin', 'data']
 
-    def __init__(self, name: str, **additional_parameters: Any) -> None:
+    def __init__(self, name: str, source=None, origin=None, **additional_parameters: Any) -> None:
         self.name = name
+        self.source = source
+        self.origin = origin
         self.data = additional_parameters
 
     def __eq__(self, other):
